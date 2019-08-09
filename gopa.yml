@@ -18,7 +18,7 @@ max_num_of_instances: 30
 
 tls_enabled: false
 
-logging.level: info
+logging.level: trace
 
 node.master: true
 node.data: true
@@ -36,7 +36,7 @@ network:
 elasticsearch:
 - name: default
   enabled: true
-  endpoint: http://localhost:9200
+  endpoint: http://elastic:9200
   index_prefix: gopa-
   basic_auth:
     username: elastic
@@ -44,7 +44,7 @@ elasticsearch:
 
 - name: monitoring
   enabled: true
-  endpoint: http://localhost:9200
+  endpoint: http://elastic:9200
   index_prefix: gopa-
   basic_auth:
     username: elastic
@@ -157,7 +157,7 @@ pipelines:
     - joint: chrome_fetch
       enabled: false
       parameters:
-        chrome_host: http://127.0.0.1:9223
+        chrome_host: http://gopa:9223
         save_screenshot: true
         compress_enabled: true
         timeout_in_seconds: 60
@@ -250,6 +250,9 @@ modules:
 
 - name: web
   enabled: true
+  network: 
+    host: gopa
+    port: 9000
   auth:
     enabled: false
     oauth_provider: github
@@ -271,6 +274,8 @@ modules:
   enabled: true
   ui:
     enabled: true
+    host: gopa
+    port: 9000
 #    site_name: Elasticsearch
 #    logo: https://static-www.elastic.co/cn/assets/blt6050efb80ceabd47/elastic-logo (2).svg?q=294
 #    favicon: https://www.elastic.co/favicon.ico
@@ -288,7 +293,7 @@ modules:
 
 - name: statsd
   enabled: false
-  host: 127.0.0.1
+  host: gopa
   port: 8125
   namespace: gopa.
   interval_in_seconds: 1
@@ -313,7 +318,7 @@ plugins:
 
 rpc:
   enabled: true
-  tls_enabled: true
-  tls_cert_file: test/cert/server.crt
-  tls_key_file: test/cert/server.key
+  tls_enabled: false
+  #tls_cert_file: test/cert/server.crt
+  #tls_key_file: test/cert/server.key
 #  tls_skip_insecure_verify: false
